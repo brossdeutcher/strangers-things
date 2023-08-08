@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const Login = ({ API_URL, isLogin, token, setToken, username, setUsername }) => {
-
+const Login = ({
+  API_URL,
+  isLogin,
+  token,
+  setToken,
+  username,
+  setUsername,
+}) => {
   const currentPath = useLocation().pathname;
   const [password, setPassword] = useState(null);
-  const [message, setMessage] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
   const navigate = useNavigate();
 
   const getToken = async () => {
@@ -25,10 +31,9 @@ const Login = ({ API_URL, isLogin, token, setToken, username, setUsername }) => 
       const result = await response.json();
       if (result.success) {
         setToken(result.data.token);
-        navigate('/')
-      }
-      else {
-        setMessage(result.error.message);
+        navigate("/");
+      } else {
+        setErrorMsg(result.error.message);
       }
     } catch (err) {
       console.error(err);
@@ -38,12 +43,12 @@ const Login = ({ API_URL, isLogin, token, setToken, username, setUsername }) => 
   const submitHandler = (e) => {
     e.preventDefault();
     getToken();
-  }
+  };
 
   return (
     <>
       <h1>{isLogin ? "Login" : "Register"}</h1>
-      {message && <p id="login-error">{message}</p>}
+      {errorMsg && <p id="login-error">{errorMsg}</p>}
       <form onSubmit={submitHandler}>
         <label>
           username
@@ -51,11 +56,14 @@ const Login = ({ API_URL, isLogin, token, setToken, username, setUsername }) => 
         </label>
         <label>
           password
-          <input type="password" onChange={(e) => setPassword(e.target.value)} />
+          <input
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </label>
         <button>{isLogin ? "Login" : "Register"}</button>
       </form>
-      {isLogin && <Link to='/register'>Not a member? Click to sign-up!!</Link>}
+      {isLogin && <Link to="/register">Not a member? Click to sign-up!!</Link>}
     </>
   );
 };
