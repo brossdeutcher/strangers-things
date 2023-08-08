@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = ({ API_URL, isLogin, token, setToken, username, setUsername }) => {
 
+  const currentPath = useLocation().pathname;
   const [password, setPassword] = useState(null);
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
 
   const getToken = async () => {
     try {
-      const response = await fetch(`${API_URL}/users/${isLogin ? 'login' : 'register'}`, {
+      const response = await fetch(`${API_URL}/users${currentPath}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +37,6 @@ const Login = ({ API_URL, isLogin, token, setToken, username, setUsername }) => 
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(`username: ${username}\npassword: ${password}`);
     getToken();
   }
 
