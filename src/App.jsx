@@ -16,7 +16,7 @@ function App() {
 
   return (
     <>
-      <NavBar token={token} setToken={setToken} />
+      <NavBar token={token} setToken={setToken} username={username} />
       <Routes>
         <Route path="/" element={<Home username={username} token={token} />} />
         <Route path="/posts" element={<Posts API_URL={API_URL} />} />
