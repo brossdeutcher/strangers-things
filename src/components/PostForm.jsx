@@ -3,6 +3,7 @@ import { useState } from "react";
 const PostForm = ({ API_URL, token }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
   const [price, setPrice] = useState(0.0);
   const [willDeliver, setWillDeliver] = useState(false);
 
@@ -18,8 +19,9 @@ const PostForm = ({ API_URL, token }) => {
           post: {
             title,
             description,
+            location,
             price,
-            willDeliver,
+            willDeliver
           },
         }),
       });
@@ -46,6 +48,10 @@ const PostForm = ({ API_URL, token }) => {
         <label>
           Description
           <input type="text" onChange={(e) => setDescription(e.target.value)} />
+        </label>
+        <label>
+          Location
+          <input type="text" onChange={(e) => setLocation(e.target.value)} />
         </label>
         <label>
           Price
