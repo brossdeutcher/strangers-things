@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar";
@@ -8,17 +9,20 @@ import Login from "./components/Login";
 
 function App() {
 
+  const [token, setToken] = useState(null);
+  const [username, setUsername] = useState(null);
+
   const API_URL = 'https://strangers-things.herokuapp.com/api/2306-fsa-et-web-ft-sf';
 
   return (
     <>
-      <NavBar />
+      <NavBar token={token} setToken={setToken} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home username={username} token={token} />} />
         <Route path="/posts" element={<Posts API_URL={API_URL} />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/login" element={<Login API_URL={API_URL} isLogin={true} />} />
-        <Route path="/register" element={<Login API_URL={API_URL} isLogin={false} />} />
+        <Route path="/login" element={<Login API_URL={API_URL} isLogin={true} token={token} setToken={setToken} username={username} setUsername={setUsername} />} />
+        <Route path="/register" element={<Login API_URL={API_URL} isLogin={false} token={token} setToken={setToken} username={username} setUsername={setUsername} />} />
       </Routes>
     </>
   );

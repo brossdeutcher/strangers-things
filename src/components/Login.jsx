@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = ({ API_URL, isLogin }) => {
+const Login = ({ API_URL, isLogin, token, setToken, username, setUsername }) => {
 
-  const [token, setToken] = useState(null);
-  const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [message, setMessage] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const getToken = async () => {
     try {
@@ -26,8 +24,7 @@ const Login = ({ API_URL, isLogin }) => {
       const result = await response.json();
       if (result.success) {
         setToken(result.data.token);
-        console.log(result.data.token);
-        navigate('/home')
+        navigate('/')
       }
       else {
         setMessage(result.error.message);
