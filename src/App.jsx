@@ -19,8 +19,8 @@ function App() {
       <NavBar token={token} setToken={setToken} username={username} />
       <Routes>
         <Route path="/" element={<Home username={username} token={token} />} />
-        <Route path="/posts" element={<Posts API_URL={API_URL} />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/posts" element={<Posts API_URL={API_URL} token={token} />} />
+        <Route path="/profile" element={<Profile API_URL={API_URL} token={token} username={username} />} />
         <Route path="/login" element={<Login API_URL={API_URL} isLogin={true} token={token} setToken={setToken} username={username} setUsername={setUsername} />} />
         <Route path="/register" element={<Login API_URL={API_URL} isLogin={false} token={token} setToken={setToken} username={username} setUsername={setUsername} />} />
       </Routes>

@@ -8,7 +8,7 @@ const NavBar = ({token, setToken, username}) => {
         <section id="nav-links">
         <Link to='/'>Home</Link>
         <Link to='/posts'>Posts</Link>
-        <Link to='/profile'>Profile</Link>
+        {token && <Link to='/profile'>Profile</Link>}
         {token ? <Link to='/' onClick={() => setToken(null)}>Logout</Link> : <Link to='/login'>Login</Link>}
         </section>
       </nav>

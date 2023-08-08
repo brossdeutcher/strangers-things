@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import PostForm from "./PostForm";
 
-const Posts = ({API_URL}) => {
+const Posts = ({API_URL, token}) => {
   
   const [posts, setPosts] = useState([]);
 
@@ -17,6 +18,7 @@ const Posts = ({API_URL}) => {
   return (
     <>
       <h1>Posts</h1>
+      <PostForm token={token} API_URL={API_URL} />
       {posts?.map((post) => (
           <div className="post-card" key={post._id}>
             <h2>{post.title}</h2>
