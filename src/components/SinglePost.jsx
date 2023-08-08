@@ -1,12 +1,27 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const SinglePost = ({ selectedPost }) => {
+const SinglePost = ({ selectedPost, API_URL, token }) => {
   console.log(selectedPost);
 
+  const navigate = useNavigate();
+
   const deleteHandler = async () => {
-    const response = await fetch();
-    const result = await response.json();
-  }
+    try {
+      console.log("delete handler");
+      const response = await fetch(`${API_URL}/posts/${selectedPost._id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const result = await response.json();
+      console.log(result);
+      navigate("/posts");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>

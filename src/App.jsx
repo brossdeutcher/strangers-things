@@ -23,7 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home username={username} token={token} />} />
         <Route path="/posts" element={<Posts API_URL={API_URL} token={token} posts={posts} setPosts={setPosts} setSelectedPost={setSelectedPost} />} />
-        <Route path="/posts/:id" element={<SinglePost selectedPost={selectedPost} />} />
+        <Route path="/posts/:id" element={<SinglePost selectedPost={selectedPost} API_URL={API_URL} token={token} />} />
         <Route path="/profile" element={<Profile API_URL={API_URL} token={token} username={username} />} />
         <Route path="/login" element={<Login API_URL={API_URL} isLogin={true} token={token} setToken={setToken} username={username} setUsername={setUsername} />} />
         <Route path="/register" element={<Login API_URL={API_URL} isLogin={false} token={token} setToken={setToken} username={username} setUsername={setUsername} />} />
