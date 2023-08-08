@@ -1,15 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = ({ API_URL, isLogin }) => {
 
   const [token, setToken] = useState(null);
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
+  const [message, setMessage] = useState(null);
+  const navigate = useNavigate()
 
-  const getTokenSignup = async () => {
+  const getToken = async () => {
     try {
-      const response = await fetch(API_URL + "/users/register", {
+      const response = await fetch(`${API_URL}/users/${isLogin ? 'login' : 'register'}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -22,7 +24,14 @@ const Login = ({ API_URL, isLogin }) => {
         }),
       });
       const result = await response.json();
-      console.log(result);
+      if (result.success) {
+        setToken(result.data.token);
+        console.log(result.data.token);
+        navigate('/home')
+      }
+      else {
+        setMessage(result.error.message);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -31,11 +40,13 @@ const Login = ({ API_URL, isLogin }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     console.log(`username: ${username}\npassword: ${password}`);
+    getToken();
   }
 
   return (
     <>
-      <h1>{isLogin ? "Login" : "Signup"}</h1>
+      <h1>{isLogin ? "Login" : "Register"}</h1>
+      {message && <p id="login-error">{message}</p>}
       <form onSubmit={submitHandler}>
         <label>
           username
@@ -45,9 +56,9 @@ const Login = ({ API_URL, isLogin }) => {
           password
           <input type="password" onChange={(e) => setPassword(e.target.value)} />
         </label>
-        <button>{isLogin ? "Login" : "Signup"}</button>
+        <button>{isLogin ? "Login" : "Register"}</button>
       </form>
-      {isLogin && <Link to='/signup'>Not a member? Click to sign-up!!</Link>}
+      {isLogin && <Link to='/register'>Not a member? Click to sign-up!!</Link>}
     </>
   );
 };

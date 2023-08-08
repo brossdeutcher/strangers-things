@@ -18,7 +18,7 @@ function App() {
         <Route path="/posts" element={<Posts API_URL={API_URL} />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login API_URL={API_URL} isLogin={true} />} />
-        <Route path="/signup" element={<Login API_URL={API_URL} isLogin={false} />} />
+        <Route path="/register" element={<Login API_URL={API_URL} isLogin={false} />} />
       </Routes>
     </>
   );
